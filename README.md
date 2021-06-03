@@ -1,5 +1,7 @@
 ## Managemant System 
 본 프로젝트는 React + nodejs + mysql의 연동을 연구하기 위한 목적으로 시작한 프로젝트입니다
+총 18강까지~
+영상 주소 : https://www.youtube.com/watch?v=_yEH9mczm3g&list=PLRx0vPvlEmdD1pSqKZiTihy5rplxecNpz
 
 # Getting Started with Create React App
 
