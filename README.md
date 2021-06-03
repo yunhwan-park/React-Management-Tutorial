@@ -1,3 +1,6 @@
+## Managemant System 
+본 프로젝트는 React + nodejs + mysql의 연동을 연구하기 위한 목적으로 시작한 프로젝트입니다
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
