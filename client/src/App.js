@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -17,19 +18,40 @@ const styles = theme => ({
   },
   table: {
     minWidth: 1080
-  }
+  },
+  progress : {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  },
+
 })
+
+/* 
+// React가 불러오는 순서(간단한 라이프 사이클)
+
+1) constructor()
+2) componentWillMount()
+3) render()
+4) componentDidMount()
+
+// props or state가 변경이 되는 경우 => shouldComponentUpdate() 함수가 실행됨
+// 다시 render() 함수 호출됨
+*/
 
 class App extends Component
 {
   state = {
-    customers: ""
+    customers: "",
+    completed: 0      // 프로그레스 값을 위한 변수
   }
 
   componentDidMount()
   {
+    this.timer = setInterval(this.progress, 200);
     this.callApi()
-    .then(res => this.setState({customers:res}))
+    .then(res => this.setState({customers: res}))
     .catch(err => console.log(err));
   }
 
@@ -38,6 +60,11 @@ class App extends Component
     const body = await response.json();
 
     return body;
+  }
+
+  progress = () => {
+    const { completed } = this.state;
+    this.setState( {completed: completed >= 100 ? 0 : completed + 10 })
   }
 
   render() {
@@ -73,7 +100,13 @@ class App extends Component
                 )
               })
               :
-              ""
+              <TableRow>
+                <TableCell colSpan="6" align="center">
+                  <div className={classes.progress}>
+                    <CircularProgress variant="determinate" value={this.state.completed} />
+                  </div>
+                </TableCell>
+              </TableRow>
           }
           </TableBody>
         </Table>
